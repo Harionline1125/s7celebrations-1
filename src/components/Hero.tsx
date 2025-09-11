@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import heroWedding from "@/assets/hero-wedding.jpg";
+import heroNew from "@/assets/hero-new.jpg";
 import { ArrowRight, Heart, Calendar, Camera } from "lucide-react";
 
 const Hero = () => {
@@ -63,7 +63,7 @@ const Hero = () => {
           <div className="relative">
             <div className="relative overflow-hidden rounded-2xl shadow-2xl">
               <img
-                src={heroWedding}
+                src={heroNew}
                 alt="Elegant wedding ceremony setup"
                 className="w-full h-[600px] object-cover"
               />
