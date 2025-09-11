@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import heroNew from "@/assets/hero-new.jpg";
 import { ArrowRight, Heart, Calendar, Camera } from "lucide-react";
+
 const Hero = () => {
-  return <section id="home" className="relative min-h-screen flex items-center bg-gradient-to-br from-background to-muted/30">
+  return (
+    <section id="home" className="relative min-h-screen flex items-center bg-gradient-to-br from-background to-muted/30">
       <div className="container mx-auto px-4 py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
@@ -10,12 +12,15 @@ const Hero = () => {
             <div className="space-y-4">
               <h1 className="text-5xl lg:text-6xl font-heading font-bold leading-tight">
                 Turning{" "}
-                <span className="italic text-[#eb0303]">Moments</span>
+                <span className="text-primary italic">Moments</span>
                 <br />
                 into{" "}
-                <span className="italic text-6xl text-[#be6013]">Memories</span>
+                <span className="text-primary italic">Memories</span>
               </h1>
-              <p className="text-muted-foreground font-body max-w-xl text-xl">Premium event management platform specializing in weddings, birthdays, and entertainment events. We bring everything you need to one place  venues, décor, catering, photography, and more.</p>
+              <p className="text-xl text-muted-foreground font-body max-w-xl">
+                Premium event management platform specializing in weddings, birthdays, and entertainment events. 
+                We bring everything you need to one place — venues, décor, catering, photography, and more.
+              </p>
             </div>
 
             <div className="flex flex-wrap gap-4">
@@ -57,12 +62,21 @@ const Hero = () => {
           {/* Image */}
           <div className="relative">
             <div className="relative overflow-hidden rounded-2xl shadow-2xl">
-              <img src={heroNew} alt="Elegant wedding ceremony setup" className="w-full h-[600px] object-cover" />
+              <img
+                src={heroNew}
+                alt="Elegant wedding ceremony setup"
+                className="w-full h-[600px] object-cover"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
             
             {/* Floating elements */}
-            
+            <div className="absolute -top-4 -right-4 bg-white rounded-2xl p-6 shadow-lg">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-primary font-heading">2024</div>
+                <div className="text-sm text-muted-foreground font-body">Award Winner</div>
+              </div>
+            </div>
             
             <div className="absolute -bottom-4 -left-4 bg-primary text-primary-foreground rounded-2xl p-6 shadow-lg">
               <div className="text-center">
@@ -73,6 +87,8 @@ const Hero = () => {
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default Hero;
