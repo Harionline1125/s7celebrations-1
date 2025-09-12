@@ -27,7 +27,12 @@ const Hero = () => {
                 Plan Your Event
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
-              <Button variant="outline" size="lg" className="font-medium">
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="font-medium"
+                onClick={() => document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' })}
+              >
                 View Gallery
               </Button>
             </div>
