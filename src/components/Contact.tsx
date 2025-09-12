@@ -3,61 +3,41 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { 
-  Phone, 
-  Mail, 
-  MapPin, 
-  Instagram, 
-  Facebook, 
-  Clock,
-  Send
-} from "lucide-react";
-
+import { Phone, Mail, MapPin, Instagram, Facebook, Clock, Send } from "lucide-react";
 const Contact = () => {
-  const contactInfo = [
-    {
-      icon: Phone,
-      title: "Call Us",
-      details: ["9962919086", "8754696030", "9363511307"],
-      description: "Available 24/7 for your events"
-    },
-    {
-      icon: Mail,
-      title: "Email Us",
-      details: ["s7eventsentertainments@gmail.com"],
-      description: "We'll respond within 24 hours"
-    },
-    {
-      icon: MapPin,
-      title: "Location",
-      details: ["Tamil Nadu, India"],
-      description: "Serving across Tamil Nadu"
-    },
-    {
-      icon: Clock,
-      title: "Working Hours",
-      details: ["Mon - Sun: 9:00 AM - 9:00 PM"],
-      description: "Always ready for consultations"
-    }
-  ];
-
-  const socialLinks = [
-    {
-      icon: Instagram,
-      name: "Instagram",
-      handle: "@s7_events_entertainments",
-      url: "#"
-    },
-    {
-      icon: Facebook,
-      name: "Facebook",
-      handle: "S7 Events Entertainments",
-      url: "#"
-    }
-  ];
-
-  return (
-    <section id="contact" className="py-20 bg-muted/30">
+  const contactInfo = [{
+    icon: Phone,
+    title: "Call Us",
+    details: ["9962919086", "8754696030", "9363511307"],
+    description: "Available 24/7 for your events"
+  }, {
+    icon: Mail,
+    title: "Email Us",
+    details: ["s7eventsentertainments@gmail.com"],
+    description: "We'll respond within 24 hours"
+  }, {
+    icon: MapPin,
+    title: "Location",
+    details: ["Tamil Nadu, India"],
+    description: "Serving across Tamil Nadu"
+  }, {
+    icon: Clock,
+    title: "Working Hours",
+    details: ["Mon - Sun: 9:00 AM - 9:00 PM"],
+    description: "Always ready for consultations"
+  }];
+  const socialLinks = [{
+    icon: Instagram,
+    name: "Instagram",
+    handle: "@s7_events_entertainments",
+    url: "#"
+  }, {
+    icon: Facebook,
+    name: "Facebook",
+    handle: "S7 Events Entertainments",
+    url: "#"
+  }];
+  return <section id="contact" className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
@@ -114,11 +94,7 @@ const Contact = () => {
 
               <div className="space-y-2">
                 <Label htmlFor="message" className="font-body">Message</Label>
-                <Textarea 
-                  id="message" 
-                  placeholder="Tell us about your event vision, guest count, budget, and any special requirements..."
-                  rows={4}
-                />
+                <Textarea id="message" placeholder="Tell us about your event vision, guest count, budget, and any special requirements..." rows={4} />
               </div>
 
               <Button size="lg" className="w-full font-body">
@@ -131,8 +107,7 @@ const Contact = () => {
           {/* Contact Information */}
           <div className="space-y-8">
             <div className="grid gap-6">
-              {contactInfo.map((info, index) => (
-                <Card key={index} className="bg-card hover:shadow-lg transition-shadow">
+              {contactInfo.map((info, index) => <Card key={index} className="bg-card hover:shadow-lg transition-shadow">
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
                       <div className="flex items-center justify-center w-12 h-12 bg-primary/10 rounded-xl">
@@ -141,11 +116,9 @@ const Contact = () => {
                       <div className="flex-1">
                         <h3 className="font-heading font-semibold text-lg mb-1">{info.title}</h3>
                         <div className="space-y-1">
-                          {info.details.map((detail, detailIndex) => (
-                            <p key={detailIndex} className="text-foreground font-body font-medium">
+                          {info.details.map((detail, detailIndex) => <p key={detailIndex} className="text-foreground font-body font-medium">
                               {detail}
-                            </p>
-                          ))}
+                            </p>)}
                         </div>
                         <p className="text-muted-foreground font-body text-sm mt-1">
                           {info.description}
@@ -153,8 +126,7 @@ const Contact = () => {
                       </div>
                     </div>
                   </CardContent>
-                </Card>
-              ))}
+                </Card>)}
             </div>
 
             {/* Social Media */}
@@ -166,8 +138,7 @@ const Contact = () => {
                   behind-the-scenes content, and inspiration.
                 </p>
                 <div className="space-y-3">
-                  {socialLinks.map((social, index) => (
-                    <div key={index} className="flex items-center gap-3">
+                  {socialLinks.map((social, index) => <div key={index} className="flex items-center gap-3">
                       <social.icon className="w-5 h-5" />
                       <div>
                         <div className="font-body font-medium">{social.name}</div>
@@ -175,8 +146,7 @@ const Contact = () => {
                           {social.handle}
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
               </CardContent>
             </Card>
@@ -196,14 +166,10 @@ const Contact = () => {
             <Button size="lg" className="font-body">
               Schedule Consultation
             </Button>
-            <Button size="lg" variant="outline" className="font-body">
-              Get Quick Quote
-            </Button>
+            
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Contact;
