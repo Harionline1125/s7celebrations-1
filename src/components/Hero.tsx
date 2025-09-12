@@ -19,7 +19,11 @@ const Hero = () => {
             </div>
 
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="font-medium">
+              <Button 
+                size="lg" 
+                className="font-medium"
+                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              >
                 Plan Your Event
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
