@@ -4,7 +4,82 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Phone, Mail, MapPin, Instagram, Facebook, Clock, Send } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { toast } from "@/hooks/use-toast";
+import { useState } from "react";
+
+const contactFormSchema = z.object({
+  firstName: z.string().min(2, "First name must be at least 2 characters"),
+  lastName: z.string().min(2, "Last name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  phone: z.string().min(10, "Please enter a valid phone number"),
+  eventType: z.string().min(1, "Please specify the event type"),
+  eventDate: z.string().optional(),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
+
+type ContactFormData = z.infer<typeof contactFormSchema>;
 const Contact = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const form = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      eventType: "",
+      eventDate: "",
+      message: "",
+    },
+  });
+
+  const onSubmit = async (data: ContactFormData) => {
+    setIsSubmitting(true);
+    try {
+      // Combine first and last name
+      const fullName = `${data.firstName} ${data.lastName}`;
+      
+      const response = await fetch('/api/send-contact-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: fullName,
+          email: data.email,
+          phone: data.phone,
+          eventType: data.eventType,
+          eventDate: data.eventDate,
+          message: data.message,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        toast({
+          title: "Message Sent! 💌",
+          description: "Thank you for reaching out! We'll get back to you within 24 hours.",
+        });
+        form.reset();
+      } else {
+        throw new Error(result.error || 'Failed to send message');
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      toast({
+        title: "Oops! Something went wrong",
+        description: "Please try again or call us directly. We're here to help!",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   const contactInfo = [{
     icon: Phone,
     title: "Call Us",
@@ -60,47 +135,111 @@ const Contact = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="firstName" className="font-body">First Name</Label>
-                  <Input id="firstName" placeholder="Your first name" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="lastName" className="font-body">Last Name</Label>
-                  <Input id="lastName" placeholder="Your last name" />
-                </div>
-              </div>
-              
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="font-body">Email</Label>
-                  <Input id="email" type="email" placeholder="your.email@example.com" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="phone" className="font-body">Phone Number</Label>
-                  <Input id="phone" type="tel" placeholder="+91 98765 43210" />
-                </div>
-              </div>
+              <form onSubmit={form.handleSubmit(onSubmit)}>
+                <div className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="firstName" className="font-body">First Name</Label>
+                      <Input 
+                        id="firstName" 
+                        placeholder="Your first name" 
+                        {...form.register("firstName")}
+                        className={form.formState.errors.firstName ? "border-destructive" : ""}
+                      />
+                      {form.formState.errors.firstName && (
+                        <p className="text-sm text-destructive">{form.formState.errors.firstName.message}</p>
+                      )}
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="lastName" className="font-body">Last Name</Label>
+                      <Input 
+                        id="lastName" 
+                        placeholder="Your last name" 
+                        {...form.register("lastName")}
+                        className={form.formState.errors.lastName ? "border-destructive" : ""}
+                      />
+                      {form.formState.errors.lastName && (
+                        <p className="text-sm text-destructive">{form.formState.errors.lastName.message}</p>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="email" className="font-body">Email</Label>
+                      <Input 
+                        id="email" 
+                        type="email" 
+                        placeholder="your.email@example.com" 
+                        {...form.register("email")}
+                        className={form.formState.errors.email ? "border-destructive" : ""}
+                      />
+                      {form.formState.errors.email && (
+                        <p className="text-sm text-destructive">{form.formState.errors.email.message}</p>
+                      )}
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="phone" className="font-body">Phone Number</Label>
+                      <Input 
+                        id="phone" 
+                        type="tel" 
+                        placeholder="+91 98765 43210" 
+                        {...form.register("phone")}
+                        className={form.formState.errors.phone ? "border-destructive" : ""}
+                      />
+                      {form.formState.errors.phone && (
+                        <p className="text-sm text-destructive">{form.formState.errors.phone.message}</p>
+                      )}
+                    </div>
+                  </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="eventType" className="font-body">Event Type</Label>
-                <Input id="eventType" placeholder="Wedding, Birthday, Corporate Event, etc." />
-              </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="eventType" className="font-body">Event Type</Label>
+                    <Input 
+                      id="eventType" 
+                      placeholder="Wedding, Birthday, Corporate Event, etc." 
+                      {...form.register("eventType")}
+                      className={form.formState.errors.eventType ? "border-destructive" : ""}
+                    />
+                    {form.formState.errors.eventType && (
+                      <p className="text-sm text-destructive">{form.formState.errors.eventType.message}</p>
+                    )}
+                  </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="eventDate" className="font-body">Event Date</Label>
-                <Input id="eventDate" type="date" />
-              </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="eventDate" className="font-body">Event Date (Optional)</Label>
+                    <Input 
+                      id="eventDate" 
+                      type="date" 
+                      {...form.register("eventDate")}
+                    />
+                  </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="message" className="font-body">Message</Label>
-                <Textarea id="message" placeholder="Tell us about your event vision, guest count, budget, and any special requirements..." rows={4} />
-              </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="message" className="font-body">Message</Label>
+                    <Textarea 
+                      id="message" 
+                      placeholder="Tell us about your event vision, guest count, budget, and any special requirements..." 
+                      rows={4} 
+                      {...form.register("message")}
+                      className={form.formState.errors.message ? "border-destructive" : ""}
+                    />
+                    {form.formState.errors.message && (
+                      <p className="text-sm text-destructive">{form.formState.errors.message.message}</p>
+                    )}
+                  </div>
 
-              <Button size="lg" className="w-full font-body">
-                Send Message
-                <Send className="ml-2 w-4 h-4" />
-              </Button>
+                  <Button 
+                    type="submit" 
+                    size="lg" 
+                    className="w-full font-body" 
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Sending Your Love Story..." : "Send Your Love Story"}
+                    <Send className="ml-2 w-4 h-4" />
+                  </Button>
+                </div>
+              </form>
             </CardContent>
           </Card>
 
@@ -115,10 +254,28 @@ const Contact = () => {
                       </div>
                       <div className="flex-1">
                         <h3 className="font-heading font-semibold text-lg mb-1">{info.title}</h3>
-                        <div className="space-y-1">
-                          {info.details.map((detail, detailIndex) => <p key={detailIndex} className="text-foreground font-body font-medium">
-                              {detail}
-                            </p>)}
+                         <div className="space-y-1">
+                          {info.details.map((detail, detailIndex) => {
+                            if (info.title === "Call Us") {
+                              return (
+                                <a key={detailIndex} href={`tel:+91${detail}`} className="text-foreground font-body font-medium hover:text-primary transition-colors cursor-pointer block">
+                                  {detail}
+                                </a>
+                              );
+                            } else if (info.title === "Email Us") {
+                              return (
+                                <a key={detailIndex} href={`mailto:${detail}`} className="text-foreground font-body font-medium hover:text-primary transition-colors cursor-pointer block">
+                                  {detail}
+                                </a>
+                              );
+                            } else {
+                              return (
+                                <p key={detailIndex} className="text-foreground font-body font-medium">
+                                  {detail}
+                                </p>
+                              );
+                            }
+                          })}
                         </div>
                         <p className="text-muted-foreground font-body text-sm mt-1">
                           {info.description}
@@ -138,7 +295,14 @@ const Contact = () => {
                   behind-the-scenes content, and inspiration.
                 </p>
                 <div className="space-y-3">
-                  {socialLinks.map((social, index) => <div key={index} className="flex items-center gap-3">
+                  {socialLinks.map((social, index) => (
+                    <a 
+                      key={index} 
+                      href={social.name === "Instagram" ? "https://instagram.com/s7_events_entertainments" : "https://facebook.com/s7eventsentertainments"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 hover:text-primary-foreground/60 transition-colors cursor-pointer"
+                    >
                       <social.icon className="w-5 h-5" />
                       <div>
                         <div className="font-body font-medium">{social.name}</div>
@@ -146,7 +310,8 @@ const Contact = () => {
                           {social.handle}
                         </div>
                       </div>
-                    </div>)}
+                    </a>
+                  ))}
                 </div>
               </CardContent>
             </Card>
