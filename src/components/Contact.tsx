@@ -163,7 +163,11 @@ const Contact = () => {
             and let's make your dream event a reality.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="font-body">
+            <Button 
+              size="lg" 
+              className="font-body"
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               Schedule Consultation
             </Button>
             
