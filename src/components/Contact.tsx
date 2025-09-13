@@ -43,12 +43,28 @@ const Contact = () => {
       // Combine first and last name
       const fullName = `${data.firstName} ${data.lastName}`;
       
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-contact-email`, {
+      // Build endpoint safely without relying on unavailable VITE_* envs
+      const supabaseUrl = (import.meta as any).env?.VITE_SUPABASE_URL as string | undefined;
+      const supabaseAnon = (import.meta as any).env?.VITE_SUPABASE_ANON_KEY as string | undefined;
+
+      if (!supabaseUrl) {
+        console.error('Supabase URL/Anon Key missing. Configure Supabase URL and ANON key to call Edge Functions.');
+        toast({
+          title: 'Configuration needed',
+          description: 'Supabase is not configured yet. Please add your Supabase URL and Anon key.',
+          variant: 'destructive',
+        });
+        return; // exit early; finally will reset submitting state
+      }
+
+      const endpoint = `${supabaseUrl}/functions/v1/send-contact-email`;
+
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (supabaseAnon) headers['Authorization'] = `Bearer ${supabaseAnon}`;
+
+      const response = await fetch(endpoint, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-        },
+        headers,
         body: JSON.stringify({
           name: fullName,
           email: data.email,
@@ -59,7 +75,19 @@ const Contact = () => {
         }),
       });
 
-      const result = await response.json();
+      // Safely parse JSON (handles empty bodies from 404/500)
+      const raw = await response.text();
+      let result: any = {};
+      try {
+        result = raw ? JSON.parse(raw) : {};
+      } catch {
+        // ignore JSON parse errors; we'll rely on status code
+      }
+
+      if (!response.ok || !result?.success) {
+        const reason = result?.error || `Request failed (${response.status})`;
+        throw new Error(reason);
+      }
 
       if (result.success) {
         toast({
@@ -72,9 +100,10 @@ const Contact = () => {
       }
     } catch (error) {
       console.error('Error sending message:', error);
+      const desc = error instanceof Error ? error.message : "Please try again or call us directly. We're here to help!";
       toast({
         title: "Oops! Something went wrong",
-        description: "Please try again or call us directly. We're here to help!",
+        description: desc,
         variant: "destructive",
       });
     } finally {
