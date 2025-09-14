@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "@/hooks/use-toast";
 import { useState } from "react";
+import { BACKEND_EMAIL_ENDPOINT } from "@/config";
 
 const contactFormSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -43,6 +44,41 @@ const Contact = () => {
       // Combine first and last name
       const fullName = `${data.firstName} ${data.lastName}`;
       
+      // Prefer custom backend endpoint if provided (PHP/Node)
+      const customEndpoint = BACKEND_EMAIL_ENDPOINT?.trim();
+      if (customEndpoint) {
+        const response = await fetch(customEndpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            firstName: data.firstName,
+            lastName: data.lastName,
+            name: fullName,
+            email: data.email,
+            phone: data.phone,
+            eventType: data.eventType,
+            eventDate: data.eventDate,
+            message: data.message,
+          }),
+        });
+
+        const rawAlt = await response.text();
+        let resultAlt: any = {};
+        try { resultAlt = rawAlt ? JSON.parse(rawAlt) : {}; } catch {}
+
+        if (!response.ok || !resultAlt?.success) {
+          const reason = resultAlt?.error || `Request failed (${response.status})`;
+          throw new Error(reason);
+        }
+
+        toast({
+          title: "Message Sent! 💌",
+          description: "Thank you for reaching out! We'll get back to you within 24 hours.",
+        });
+        form.reset();
+        return; // Done via custom backend
+      }
+
       // Build endpoint safely without relying on unavailable VITE_* envs
       const supabaseUrl = (import.meta as any).env?.VITE_SUPABASE_URL as string | undefined;
       const supabaseAnon = (import.meta as any).env?.VITE_SUPABASE_ANON_KEY as string | undefined;
@@ -51,7 +87,7 @@ const Contact = () => {
         console.error('Supabase URL/Anon Key missing. Configure Supabase URL and ANON key to call Edge Functions.');
         toast({
           title: 'Configuration needed',
-          description: 'Supabase is not configured yet. Please add your Supabase URL and Anon key.',
+          description: 'Supabase is not configured yet. Please add your Supabase URL and Anon key, or set BACKEND_EMAIL_ENDPOINT in src/config.ts.',
           variant: 'destructive',
         });
         return; // exit early; finally will reset submitting state
