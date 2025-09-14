@@ -1,4 +1,5 @@
 import { Heart, Instagram, Facebook, Mail, Phone } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -17,10 +18,10 @@ const Footer = () => {
               Specializing in weddings, birthdays, and entertainment events across Tamil Nadu.
             </p>
             <div className="flex items-center gap-4">
-              <a href="#" className="text-background/60 hover:text-background transition-colors">
+              <a href="https://www.instagram.com/s7_events_entertainments?igsh=MXNubnlzbWZ4NGU4Zw==" target="_blank" rel="noopener noreferrer" className="text-background/60 hover:text-background transition-colors">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="text-background/60 hover:text-background transition-colors">
+              <a href="https://www.facebook.com/share/17Ea8M4aeJ/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="text-background/60 hover:text-background transition-colors">
                 <Facebook className="w-5 h-5" />
               </a>
             </div>
@@ -30,8 +31,8 @@ const Footer = () => {
           <div>
             <h4 className="font-heading font-semibold text-lg mb-4">Quick Links</h4>
             <ul className="space-y-2 font-body">
-              <li><a href="#home" className="text-background/80 hover:text-background transition-colors">Home</a></li>
-              <li><a href="#about" className="text-background/80 hover:text-background transition-colors">About</a></li>
+              <li><Link to="/" className="text-background/80 hover:text-background transition-colors">Home</Link></li>
+              <li><Link to="/about" className="text-background/80 hover:text-background transition-colors">About</Link></li>
               <li><a href="#services" className="text-background/80 hover:text-background transition-colors">Services</a></li>
               <li><a href="#gallery" className="text-background/80 hover:text-background transition-colors">Gallery</a></li>
               <li><a href="#contact" className="text-background/80 hover:text-background transition-colors">Contact</a></li>
@@ -44,11 +45,11 @@ const Footer = () => {
             <div className="space-y-3 font-body">
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-background/60" />
-                <span className="text-background/80 text-sm">9962919086</span>
+                <a href="tel:+919962919086" className="text-background/80 text-sm hover:text-background transition-colors">9962919086</a>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-background/60" />
-                <span className="text-background/80 text-sm">s7eventsentertainments@gmail.com</span>
+                <a href="mailto:s7eventsentertainments@gmail.com" className="text-background/80 text-sm hover:text-background transition-colors">s7eventsentertainments@gmail.com</a>
               </div>
               <div className="text-background/80 text-sm">
                 Tamil Nadu, India
