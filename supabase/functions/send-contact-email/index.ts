@@ -84,7 +84,7 @@ Received on: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
         body: JSON.stringify({
           from: 'S7 Events Website <onboarding@resend.dev>',
           to: ['s7eventsentertainments@gmail.com'],
-          subject: `New Contact Form Submission - ${eventType}`,
+          subject: 'New Event Inquiry',
           text: emailContent,
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
