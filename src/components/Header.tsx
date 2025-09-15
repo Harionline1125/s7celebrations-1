@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Menu, X, Phone, Mail, Instagram, Facebook } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import logoImage from "@/assets/s7-logo.jpg";
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigation = [{
@@ -51,9 +52,16 @@ const Header = () => {
 
         {/* Main navigation */}
         <div className="flex justify-between items-center py-4">
-          <div className="flex items-center">
-            <Link to="/" className="text-2xl font-heading font-bold text-primary hover:text-primary/80 transition-colors">
-              S7 Events & Entertainments
+          <div className="flex items-center gap-3">
+            <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+              <img 
+                src={logoImage} 
+                alt="S7 Events & Entertainments Logo" 
+                className="w-12 h-12 object-cover rounded-full"
+              />
+              <span className="text-2xl font-heading font-bold text-primary">
+                S7 Events & Entertainments
+              </span>
             </Link>
           </div>
 
