@@ -79,24 +79,14 @@ const Contact = () => {
         return; // Done via custom backend
       }
 
-      // Build endpoint safely without relying on unavailable VITE_* envs
-      const supabaseUrl = (import.meta as any).env?.VITE_SUPABASE_URL as string | undefined;
-      const supabaseAnon = (import.meta as any).env?.VITE_SUPABASE_ANON_KEY as string | undefined;
+      // Call Supabase Edge Function directly using the project ref (no VITE_* envs)
+      const endpoint = `https://ndahuzihvcqhuocamljz.supabase.co/functions/v1/send-contact-email`;
 
-      if (!supabaseUrl) {
-        console.error('Supabase URL/Anon Key missing. Configure Supabase URL and ANON key to call Edge Functions.');
-        toast({
-          title: 'Configuration needed',
-          description: 'Supabase is not configured yet. Please add your Supabase URL and Anon key, or set BACKEND_EMAIL_ENDPOINT in src/config.ts.',
-          variant: 'destructive',
-        });
-        return; // exit early; finally will reset submitting state
-      }
-
-      const endpoint = `${supabaseUrl}/functions/v1/send-contact-email`;
-
-      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
-      if (supabaseAnon) headers['Authorization'] = `Bearer ${supabaseAnon}`;
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+        // Optional: public anon key for rate limiting/analytics on Supabase side
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5kYWh1emlodmNxaHVvY2FtbGp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc4MjAyNjksImV4cCI6MjA3MzM5NjI2OX0.YNybDc4MDrZLBS_xl9GEuhPXxVDkEUj3f_HnVvHxLHM',
+      };
 
       const response = await fetch(endpoint, {
         method: 'POST',
