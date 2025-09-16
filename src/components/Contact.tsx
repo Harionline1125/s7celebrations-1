@@ -6,6 +6,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Phone, Mail, MapPin, Instagram, Facebook, Clock, Send } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { motion } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { z } from "zod";
 import { toast } from "@/hooks/use-toast";
 import { useState } from "react";
@@ -23,6 +25,7 @@ const contactFormSchema = z.object({
 
 type ContactFormData = z.infer<typeof contactFormSchema>;
 const Contact = () => {
+  const { ref: contactRef, isInView: contactInView } = useScrollAnimation({ threshold: 0.2 });
   const [isSubmitting, setIsSubmitting] = useState(false);
   
   const form = useForm<ContactFormData>({
@@ -296,9 +299,11 @@ const Contact = () => {
                   </Button>
                 </div>
               </form>
-            </CardContent>
+          </CardContent>
           </Card>
+        </motion.div>
 
+        <div className="grid lg:grid-cols-1 gap-12">
           {/* Contact Information */}
           <div className="space-y-8">
             <div className="grid gap-6">
