@@ -1,139 +1,22 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Phone, Mail, MapPin, Instagram, Facebook, Clock, Send } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { toast } from "@/hooks/use-toast";
-import { useState } from "react";
-import { BACKEND_EMAIL_ENDPOINT } from "@/config";
+import { Phone, Mail, MapPin, Instagram, Facebook, Clock, MessageCircle } from "lucide-react";
 
-const contactFormSchema = z.object({
-  firstName: z.string().min(2, "First name must be at least 2 characters"),
-  lastName: z.string().min(2, "Last name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  phone: z.string().min(10, "Please enter a valid phone number"),
-  eventType: z.string().min(1, "Please specify the event type"),
-  eventDate: z.string().optional(),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-});
-
-type ContactFormData = z.infer<typeof contactFormSchema>;
 const Contact = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  
-  const form = useForm<ContactFormData>({
-    resolver: zodResolver(contactFormSchema),
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      eventType: "",
-      eventDate: "",
-      message: "",
-    },
-  });
-
-  const onSubmit = async (data: ContactFormData) => {
-    setIsSubmitting(true);
-    try {
-      // Combine first and last name
-      const fullName = `${data.firstName} ${data.lastName}`;
-      
-      // Prefer custom backend endpoint if provided (PHP/Node)
-      const customEndpoint = BACKEND_EMAIL_ENDPOINT?.trim();
-      if (customEndpoint) {
-        const response = await fetch(customEndpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({
-            firstName: data.firstName,
-            lastName: data.lastName,
-            name: fullName,
-            email: data.email,
-            phone: data.phone,
-            eventType: data.eventType,
-            eventDate: data.eventDate,
-            message: data.message,
-          }),
-        });
-
-        const rawAlt = await response.text();
-        let resultAlt: any = {};
-        try { resultAlt = rawAlt ? JSON.parse(rawAlt) : {}; } catch {}
-
-        if (!response.ok || !resultAlt?.success) {
-          const reason = resultAlt?.error || `Request failed (${response.status})`;
-          throw new Error(reason);
-        }
-
-        toast({
-          title: "Message Sent! 💌",
-          description: "Thank you for reaching out! We'll get back to you within 24 hours.",
-        });
-        form.reset();
-        return; // Done via custom backend
-      }
-
-      // Call Supabase Edge Function directly using the project ref (no VITE_* envs)
-      const endpoint = `https://ndahuzihvcqhuocamljz.supabase.co/functions/v1/send-contact-email`;
-
-      const headers: Record<string, string> = {
-        'Content-Type': 'application/json',
-        // Optional: public anon key for rate limiting/analytics on Supabase side
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5kYWh1emlodmNxaHVvY2FtbGp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc4MjAyNjksImV4cCI6MjA3MzM5NjI2OX0.YNybDc4MDrZLBS_xl9GEuhPXxVDkEUj3f_HnVvHxLHM',
-      };
-
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          name: fullName,
-          email: data.email,
-          phone: data.phone,
-          eventType: data.eventType,
-          eventDate: data.eventDate,
-          message: data.message,
-        }),
-      });
-
-      // Safely parse JSON (handles empty bodies from 404/500)
-      const raw = await response.text();
-      let result: any = {};
-      try {
-        result = raw ? JSON.parse(raw) : {};
-      } catch {
-        // ignore JSON parse errors; we'll rely on status code
-      }
-
-      if (!response.ok || !result?.success) {
-        const reason = result?.error || `Request failed (${response.status})`;
-        throw new Error(reason);
-      }
-
-      if (result.success) {
-        toast({
-          title: "Message Sent! 💌",
-          description: "Thank you for reaching out! We'll get back to you within 24 hours.",
-        });
-        form.reset();
-      } else {
-        throw new Error(result.error || 'Failed to send message');
-      }
-    } catch (error) {
-      console.error('Error sending message:', error);
-      const desc = error instanceof Error ? error.message : "Please try again or call us directly. We're here to help!";
-      toast({
-        title: "Oops! Something went wrong",
-        description: desc,
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
+  const handleWhatsAppClick = () => {
+    const phoneNumber = "919962919086";
+    const message = "Hi! I'm interested in your event services. Can we discuss my requirements?";
+    const encodedMessage = encodeURIComponent(message);
+    
+    // Detect if mobile device
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+      // Open WhatsApp app on mobile
+      window.open(`whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`, '_blank');
+    } else {
+      // Open WhatsApp Web on desktop
+      window.open(`https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`, '_blank');
     }
   };
   const contactInfo = [{
@@ -182,120 +65,37 @@ const Contact = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
+          {/* WhatsApp Contact */}
           <Card className="bg-card shadow-lg">
-            <CardHeader>
-              <CardTitle className="font-heading text-2xl">Send Us a Message</CardTitle>
+            <CardHeader className="text-center">
+              <CardTitle className="font-heading text-2xl">Get In Touch Instantly</CardTitle>
               <CardDescription className="font-body">
-                Fill out the form below and we'll get back to you as soon as possible.
+                Start a conversation with us on WhatsApp and get immediate assistance for your event planning needs.
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <form onSubmit={form.handleSubmit(onSubmit)}>
-                <div className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="firstName" className="font-body">First Name</Label>
-                      <Input 
-                        id="firstName" 
-                        placeholder="Your first name" 
-                        {...form.register("firstName")}
-                        className={form.formState.errors.firstName ? "border-destructive" : ""}
-                      />
-                      {form.formState.errors.firstName && (
-                        <p className="text-sm text-destructive">{form.formState.errors.firstName.message}</p>
-                      )}
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="lastName" className="font-body">Last Name</Label>
-                      <Input 
-                        id="lastName" 
-                        placeholder="Your last name" 
-                        {...form.register("lastName")}
-                        className={form.formState.errors.lastName ? "border-destructive" : ""}
-                      />
-                      {form.formState.errors.lastName && (
-                        <p className="text-sm text-destructive">{form.formState.errors.lastName.message}</p>
-                      )}
-                    </div>
-                  </div>
-                  
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="email" className="font-body">Email</Label>
-                      <Input 
-                        id="email" 
-                        type="email" 
-                        placeholder="your.email@example.com" 
-                        {...form.register("email")}
-                        className={form.formState.errors.email ? "border-destructive" : ""}
-                      />
-                      {form.formState.errors.email && (
-                        <p className="text-sm text-destructive">{form.formState.errors.email.message}</p>
-                      )}
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="phone" className="font-body">Phone Number</Label>
-                      <Input 
-                        id="phone" 
-                        type="tel" 
-                        placeholder="+91 98765 43210" 
-                        {...form.register("phone")}
-                        className={form.formState.errors.phone ? "border-destructive" : ""}
-                      />
-                      {form.formState.errors.phone && (
-                        <p className="text-sm text-destructive">{form.formState.errors.phone.message}</p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="eventType" className="font-body">Event Type</Label>
-                    <Input 
-                      id="eventType" 
-                      placeholder="Wedding, Birthday, Corporate Event, etc." 
-                      {...form.register("eventType")}
-                      className={form.formState.errors.eventType ? "border-destructive" : ""}
-                    />
-                    {form.formState.errors.eventType && (
-                      <p className="text-sm text-destructive">{form.formState.errors.eventType.message}</p>
-                    )}
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="eventDate" className="font-body">Event Date (Optional)</Label>
-                    <Input 
-                      id="eventDate" 
-                      type="date" 
-                      {...form.register("eventDate")}
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="message" className="font-body">Message</Label>
-                    <Textarea 
-                      id="message" 
-                      placeholder="Tell us about your event vision, guest count, budget, and any special requirements..." 
-                      rows={4} 
-                      {...form.register("message")}
-                      className={form.formState.errors.message ? "border-destructive" : ""}
-                    />
-                    {form.formState.errors.message && (
-                      <p className="text-sm text-destructive">{form.formState.errors.message.message}</p>
-                    )}
-                  </div>
-
-                  <Button 
-                    type="submit" 
-                    size="lg" 
-                    className="w-full font-body" 
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? "Sending Your Love Story..." : "Send Your Love Story"}
-                    <Send className="ml-2 w-4 h-4" />
-                  </Button>
+            <CardContent className="text-center py-12">
+              <div className="flex flex-col items-center space-y-6">
+                <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
+                  <MessageCircle className="w-10 h-10 text-white" />
                 </div>
-              </form>
+                <div>
+                  <h3 className="font-heading text-xl font-semibold mb-2">Chat with S7 Events</h3>
+                  <p className="text-muted-foreground font-body mb-6">
+                    Get instant responses to your queries about event planning, pricing, and availability.
+                  </p>
+                </div>
+                <Button 
+                  onClick={handleWhatsAppClick}
+                  size="lg" 
+                  className="bg-green-500 hover:bg-green-600 text-white font-body px-8 py-6 text-lg rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                >
+                  <MessageCircle className="mr-3 w-5 h-5" />
+                  Chat on WhatsApp
+                </Button>
+                <p className="text-sm text-muted-foreground font-body">
+                  Available 24/7 • Quick Response • Free Consultation
+                </p>
+              </div>
             </CardContent>
           </Card>
 
