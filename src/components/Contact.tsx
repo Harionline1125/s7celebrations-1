@@ -187,9 +187,123 @@ const Contact = () => {
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Form */}
           <Card className="bg-card shadow-lg">
-...
-          </Card>
+            <CardHeader>
+              <CardTitle className="font-heading text-2xl">Send Us a Message</CardTitle>
+              <CardDescription className="font-body">
+                Fill out the form below and we'll get back to you as soon as possible.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <form onSubmit={form.handleSubmit(onSubmit)}>
+                <div className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="firstName" className="font-body">First Name</Label>
+                      <Input 
+                        id="firstName" 
+                        placeholder="Your first name" 
+                        {...form.register("firstName")}
+                        className={form.formState.errors.firstName ? "border-destructive" : ""}
+                      />
+                      {form.formState.errors.firstName && (
+                        <p className="text-sm text-destructive">{form.formState.errors.firstName.message}</p>
+                      )}
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="lastName" className="font-body">Last Name</Label>
+                      <Input 
+                        id="lastName" 
+                        placeholder="Your last name" 
+                        {...form.register("lastName")}
+                        className={form.formState.errors.lastName ? "border-destructive" : ""}
+                      />
+                      {form.formState.errors.lastName && (
+                        <p className="text-sm text-destructive">{form.formState.errors.lastName.message}</p>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="email" className="font-body">Email</Label>
+                      <Input 
+                        id="email" 
+                        type="email" 
+                        placeholder="your.email@example.com" 
+                        {...form.register("email")}
+                        className={form.formState.errors.email ? "border-destructive" : ""}
+                      />
+                      {form.formState.errors.email && (
+                        <p className="text-sm text-destructive">{form.formState.errors.email.message}</p>
+                      )}
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="phone" className="font-body">Phone Number</Label>
+                      <Input 
+                        id="phone" 
+                        type="tel" 
+                        placeholder="+91 98765 43210" 
+                        {...form.register("phone")}
+                        className={form.formState.errors.phone ? "border-destructive" : ""}
+                      />
+                      {form.formState.errors.phone && (
+                        <p className="text-sm text-destructive">{form.formState.errors.phone.message}</p>
+                      )}
+                    </div>
+                  </div>
 
+                  <div className="space-y-2">
+                    <Label htmlFor="eventType" className="font-body">Event Type</Label>
+                    <Input 
+                      id="eventType" 
+                      placeholder="Wedding, Birthday, Corporate Event, etc." 
+                      {...form.register("eventType")}
+                      className={form.formState.errors.eventType ? "border-destructive" : ""}
+                    />
+                    {form.formState.errors.eventType && (
+                      <p className="text-sm text-destructive">{form.formState.errors.eventType.message}</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="eventDate" className="font-body">Event Date (Optional)</Label>
+                    <Input 
+                      id="eventDate" 
+                      type="date" 
+                      {...form.register("eventDate")}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="message" className="font-body">Message</Label>
+                    <Textarea 
+                      id="message" 
+                      placeholder="Tell us about your event vision, guest count, budget, and any special requirements..." 
+                      rows={4} 
+                      {...form.register("message")}
+                      className={form.formState.errors.message ? "border-destructive" : ""}
+                    />
+                    {form.formState.errors.message && (
+                      <p className="text-sm text-destructive">{form.formState.errors.message.message}</p>
+                    )}
+                  </div>
+
+                  <Button 
+                    type="submit" 
+                    size="lg" 
+                    className="w-full font-body" 
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Sending Your Love Story..." : "Send Your Love Story"}
+                    <Send className="ml-2 w-4 h-4" />
+                  </Button>
+                </div>
+              </form>
+          </CardContent>
+          </Card>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-1 gap-12">
           {/* Contact Information */}
           <div className="space-y-8">
             <div className="grid gap-6">
