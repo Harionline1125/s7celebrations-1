@@ -82,7 +82,7 @@ Received on: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          from: 'S7 Events <onboarding@resend.dev>',
+          from: 'S7 Events Website <onboarding@resend.dev>',
           to: ['s7eventsentertainments@gmail.com'],
           subject: 'New Event Inquiry',
           text: emailContent,
