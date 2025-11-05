@@ -1,3 +1,4 @@
+import React from "react";
 import { Button } from "@/components/ui/button";
 import pg6 from "@/assets/pg6.jpg";
 import { ArrowRight, Heart, Calendar, Camera } from "lucide-react";
