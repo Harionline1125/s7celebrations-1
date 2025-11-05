@@ -5,7 +5,7 @@ type PlanEventFormProps = {
   onClose: () => void;
 };
 
-const ADMIN_WHATSAPP = "919962919086"; // include country code, digits only
+const ADMIN_WHATSAPP = "918754696030"; // include country code, digits only
 
 const overlayClass = "fixed inset-0 bg-black/50 z-[60]";
 const panelClass = "fixed z-[61] inset-x-4 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 top-24 sm:top-28 w-auto sm:w-[520px] rounded-xl bg-white dark:bg-neutral-900 shadow-xl border border-border";

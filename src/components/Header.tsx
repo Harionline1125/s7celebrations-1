@@ -7,7 +7,7 @@ import logoImage from "@/assets/s7-logo.jpg";
 // Floating WhatsApp contact button shown across pages via the Header
 const WhatsAppFloatButton: FC = () => (
   <a
-    href="https://wa.me/919962919086?text=Hello%21%20I%27d%20like%20to%20know%20more%20about%20S7%20Events%20%26%20Entertainments."
+    href="https://wa.me/918754696030?text=Hello%21%20I%27d%20like%20to%20know%20more%20about%20S7%20Events%20%26%20Entertainments."
     target="_blank"
     rel="noopener noreferrer"
     aria-label="Open WhatsApp chat"
