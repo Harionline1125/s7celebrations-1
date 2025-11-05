@@ -3,11 +3,12 @@ import { Menu, X, Phone, Mail, Instagram, Facebook } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import logoImage from "@/assets/s7-logo.jpg";
+import PlanFloatButton from "./PlanFloatButton";
 
 // Floating WhatsApp contact button shown across pages via the Header
 const WhatsAppFloatButton: FC = () => (
   <a
-    href="https://wa.me/1234567890"
+    href="https://wa.me/919962919086?text=Hello%21%20I%27d%20like%20to%20know%20more%20about%20S7%20Events%20%26%20Entertainments."
     target="_blank"
     rel="noopener noreferrer"
     aria-label="Open WhatsApp chat"
@@ -132,6 +133,7 @@ const Header = () => {
       </div>
     </header>
     <WhatsAppFloatButton />
+    <PlanFloatButton />
   </>;
 };
 export default Header;

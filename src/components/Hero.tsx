@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import pg6 from "@/assets/pg6.jpg";
 import { ArrowRight, Heart, Calendar, Camera } from "lucide-react";
 import { motion } from "framer-motion";
@@ -18,15 +19,10 @@ const Hero = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1
-                className="font-heading font-bold leading-tight
-                           text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
-              >
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight font-heading">
                 Turning <span className="italic text-[#eb0303]">Moments</span>
                 <br />
-                into <span className="italic text-[#be6013] text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
-                  Memories
-                </span>
+                into <span className="italic text-[#be6013] text-2xl sm:text-3xl md:text-4xl lg:text-5xl">Memories</span>
               </h1>
             </motion.div>
 
@@ -48,14 +44,12 @@ const Hero = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
             >
               <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}>
-                <Button
-                  size="lg"
-                  className="font-medium"
-                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                >
-                  Plan Your Event
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
+                <Link to="/plan-event" aria-label="Plan your event">
+                  <Button size="lg" className="font-medium">
+                    Plan Your Event
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </Button>
+                </Link>
               </motion.div>
               <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}>
                 <Button
