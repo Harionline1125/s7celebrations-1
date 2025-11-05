@@ -2,8 +2,10 @@ import { Button } from "@/components/ui/button";
 import pg6 from "@/assets/pg6.jpg";
 import { ArrowRight, Heart, Calendar, Camera } from "lucide-react";
 import { motion } from "framer-motion";
+import PlanEventForm from "./PlanEventForm";
 
 const Hero = () => {
+  const [openForm, setOpenForm] = React.useState(false);
   return (
     <section
       id="home"
@@ -51,7 +53,7 @@ const Hero = () => {
                 <Button
                   size="lg"
                   className="font-medium"
-                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                  onClick={() => setOpenForm(true)}
                 >
                   Plan Your Event
                   <ArrowRight className="ml-2 w-4 h-4" />
@@ -131,6 +133,7 @@ const Hero = () => {
           </motion.div>
         </div>
       </div>
+      <PlanEventForm open={openForm} onClose={() => setOpenForm(false)} />
     </section>
   );
 };
