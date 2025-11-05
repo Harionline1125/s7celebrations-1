@@ -63,10 +63,10 @@ const Header = () => {
           </div>
           <div className="flex items-center gap-4">
             <a href="https://instagram.com/s7_events_entertainments" target="_blank" rel="noopener noreferrer">
-              <Instagram className="w-4 h-4 cursor-pointer hover:text-primary transition-colors" />
+              <Instagram className="w-6 h-6 cursor-pointer hover:text-primary transition-colors" />
             </a>
             <a href="https://facebook.com/s7eventsentertainments" target="_blank" rel="noopener noreferrer">
-              <Facebook className="w-4 h-4 cursor-pointer hover:text-primary transition-colors" />
+              <Facebook className="w-6 h-6 cursor-pointer hover:text-primary transition-colors" />
             </a>
           </div>
         </div>
