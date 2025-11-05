@@ -12,18 +12,18 @@ const Hero = () => {
       id="home"
       className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted/30 px-4"
     >
-      <div className="container mx-auto px-4 py-20">
+      <div className="container mx-auto px-0 md:px-4 py-12 sm:py-16 md:py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
-          <div className="space-y-8 w-full text-center lg:text-center">
+          <div className="space-y-8 w-full text-center">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
               <h1
-                className="font-heading font-bold leading-tight mx-auto max-w-[20ch] break-words whitespace-normal
-                           text-[clamp(1.75rem,5.5vw,3.25rem)]"
+                className="font-heading font-bold mx-auto max-w-[24ch] break-words whitespace-normal tracking-tight
+                           text-[clamp(1.4rem,6.5vw,3rem)] leading-[1.15]"
               >
                 Turning <span className="italic text-[#eb0303]">Moments</span> into <span className="italic text-[#be6013]">Memories</span>
               </h1>
@@ -33,8 +33,8 @@ const Hero = () => {
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-muted-foreground font-body mx-auto max-w-2xl text-center leading-relaxed
-                         text-[clamp(0.95rem,2.2vw,1.25rem)]"
+              className="text-muted-foreground font-body mx-auto max-w-[60ch] text-center leading-relaxed
+                         text-[clamp(0.95rem,2.8vw,1.125rem)]"
             >
               Premium event management platform specializing in weddings,
               birthdays, and entertainment events. We bring everything you
@@ -111,7 +111,7 @@ const Hero = () => {
               <img
                 src={pg6}
                 alt="Elegant wedding ceremony setup"
-                className="w-full h-auto max-h-[70vh] object-cover"
+                className="w-full h-auto max-h-[60vh] sm:max-h-[65vh] md:max-h-[70vh] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
