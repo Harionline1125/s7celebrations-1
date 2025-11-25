@@ -10,12 +10,12 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted/30 px-4"
+      className="relative min-h-screen flex items-start justify-center bg-gradient-to-br from-background to-muted/30 px-4 pt-32 md:pt-40"
     >
-      <div className="container mx-auto px-4 py-20">
+      <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
-          <div className="space-y-8 w-full text-center lg:text-center">
+          <div className="space-y-8 w-full text-center lg:text-center pt-8 md:pt-16">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
@@ -23,7 +23,7 @@ const Hero = () => {
             >
               <h1
                 className="font-heading font-bold leading-tight mx-auto max-w-[20ch] break-words whitespace-normal
-                           text-[clamp(1.75rem,5.5vw,3.25rem)]"
+                           text-[clamp(2.25rem,7vw,4rem)] md:text-[clamp(2.5rem,6vw,3.5rem)] lg:text-[clamp(2.75rem,5.5vw,3.25rem)]"
               >
                 Turning <span className="italic text-[#eb0303]">Moments</span> into <span className="italic text-[#be6013]">Memories</span>
               </h1>

@@ -27,7 +27,7 @@ const Contact = () => {
   }, {
     icon: Mail,
     title: "Email Us",
-    details: ["s7eventsentertainments@gmail.com"],
+  details: ["s7celebrations@gmail.com"],
     description: "We'll respond within 24 hours"
   }, {
     icon: MapPin,
@@ -43,12 +43,12 @@ const Contact = () => {
   const socialLinks = [{
     icon: Instagram,
     name: "Instagram",
-    handle: "@s7_events_entertainments",
+  handle: "S7 Celebrations",
     url: "#"
   }, {
     icon: Facebook,
     name: "Facebook",
-    handle: "S7 Events Entertainments",
+  handle: "S7 Celebrations",
     url: "#"
   }];
   return <section id="contact" className="py-20 bg-muted/30">
@@ -154,7 +154,7 @@ const Contact = () => {
                   {socialLinks.map((social, index) => (
                     <a 
                       key={index} 
-                      href={social.name === "Instagram" ? "https://instagram.com/s7_events_entertainments" : "https://facebook.com/s7eventsentertainments"}
+  href={social.name === "Instagram" ? "https://www.instagram.com/s7celebrations?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" : "https://www.facebook.com/share/17Ea8M4aeJ/?mibextid=wwXIfr"}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-3 hover:text-primary-foreground/60 transition-colors cursor-pointer"

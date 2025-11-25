@@ -17,7 +17,7 @@ serve(async (req) => {
     const { name, email, phone, eventType, eventDate, message } = await req.json()
 
     // Validate required fields
-    if (!name || !email || !phone || !eventType || !message) {
+    if (!name || !email || !phone || !eventType) {
       return new Response(
         JSON.stringify({ error: 'Missing required fields' }),
         { 
@@ -67,7 +67,7 @@ Event Type: ${eventType}
 ${eventDate ? `Event Date: ${eventDate}` : 'Event Date: Not specified'}
 
 💬 Message:
-${message}
+${message || 'No additional message provided.'}
 
 ==========================================
 Received on: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
@@ -82,8 +82,8 @@ Received on: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          from: 'S7 Events <onboarding@resend.dev>',
-          to: ['s7eventsentertainments@gmail.com'],
+          from: 'S7 Celebrations <onboarding@resend.dev>',
+  to: ['s7celebrations@gmail.com'],
           subject: 'New Event Inquiry',
           text: emailContent,
           html: `
@@ -103,7 +103,7 @@ Received on: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
                 </div>
                 <div style="background-color: #f0fdf4; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
                   <h3 style="color: #16a34a; margin-bottom: 15px;">💬 Message:</h3>
-                  <p style="line-height: 1.6;">${message}</p>
+                  <p style="line-height: 1.6;">${message || 'No additional message provided.'}</p>
                 </div>
                 <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;">
                 <p style="color: #6b7280; font-size: 14px; text-align: center;">

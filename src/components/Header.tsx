@@ -2,12 +2,12 @@ import { useState, type FC } from "react";
 import { Menu, X, Phone, Mail, Instagram, Facebook } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import logoImage from "@/assets/s7-logo.jpg";
+// Using the new logo from the public folder. Place your image at /public/s7-logo.png
 
 // Floating WhatsApp contact button shown across pages via the Header
 const WhatsAppFloatButton: FC = () => (
   <a
-    href="https://wa.me/918754696030?text=Hello%21%20I%27d%20like%20to%20know%20more%20about%20S7%20Events%20%26%20Entertainments."
+  href="https://wa.me/918754696030?text=Hello%21%20I%27d%20like%20to%20know%20more%20about%20S7%20Celebrations."
     target="_blank"
     rel="noopener noreferrer"
     aria-label="Open WhatsApp chat"
@@ -27,7 +27,7 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigation = [{
     name: "Home",
-    href: "/",
+    href: "/#home",
     isRoute: true
   }, {
     name: "About",
@@ -56,16 +56,16 @@ const Header = () => {
               <Phone className="w-3 h-3" />
               <span>9962919086</span>
             </a>
-            <a href="mailto:s7eventsentertainments@gmail.com" className="flex items-center gap-2 hover:text-primary transition-colors">
+<a href="mailto:s7celebrations@gmail.com" className="flex items-center gap-2 hover:text-primary transition-colors">
               <Mail className="w-3 h-3" />
-              <span>s7eventsentertainments@gmail.com</span>
+<span>s7celebrations@gmail.com</span>
             </a>
           </div>
           <div className="flex items-center gap-4">
-            <a href="https://instagram.com/s7_events_entertainments" target="_blank" rel="noopener noreferrer">
+<a href="https://www.instagram.com/s7celebrations?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">
               <Instagram className="w-6 h-6 cursor-pointer hover:text-primary transition-colors" />
             </a>
-            <a href="https://facebook.com/s7eventsentertainments" target="_blank" rel="noopener noreferrer">
+<a href="https://www.facebook.com/share/17Ea8M4aeJ/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">
               <Facebook className="w-6 h-6 cursor-pointer hover:text-primary transition-colors" />
             </a>
           </div>
@@ -76,12 +76,14 @@ const Header = () => {
           <div className="flex items-center gap-3">
             <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
               <img 
-                src={logoImage} 
-                alt="S7 Events & Entertainments Logo" 
-                className="w-12 h-12 object-cover rounded-full"
+                src="/s7-log.png" 
+                alt="S7 Celebrations Logo"
+                className="w-12 h-12 object-contain rounded-md"
+                loading="eager"
+                decoding="async"
               />
               <span className="text-2xl font-heading font-bold text-primary">
-                S7 Events & Entertainments
+  S7 Celebrations
               </span>
             </Link>
           </div>
@@ -94,9 +96,9 @@ const Header = () => {
                   {item.name}
                 </Link>
               ) : (
-                <a key={item.name} href={item.href} className="text-foreground hover:text-primary transition-colors font-medium font-body">
+                <Link key={item.name} to={`/${item.href}`} className="text-foreground hover:text-primary transition-colors font-medium font-body">
                   {item.name}
-                </a>
+                </Link>
               )
             )}
             <Button variant="default" size="sm" className="ml-4" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
@@ -119,9 +121,9 @@ const Header = () => {
                     {item.name}
                   </Link>
                 ) : (
-                  <a key={item.name} href={item.href} className="text-foreground hover:text-primary transition-colors font-medium font-body" onClick={() => setIsOpen(false)}>
+                  <Link key={item.name} to={`/${item.href}`} className="text-foreground hover:text-primary transition-colors font-medium font-body" onClick={() => setIsOpen(false)}>
                     {item.name}
-                  </a>
+                  </Link>
                 )
               )}
               <Button variant="default" size="sm" className="w-fit mt-4" onClick={() => { setIsOpen(false); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}>

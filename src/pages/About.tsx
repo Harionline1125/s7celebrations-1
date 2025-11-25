@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Heart, Users, Star, Camera, Music, MapPin, Palette, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -6,6 +7,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 const About = () => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   const expertise = [
     { icon: MapPin, title: "Venue Selection", description: "Perfect locations for your special day" },
     { icon: Palette, title: "Décor Design", description: "Beautiful themes that tell your story" },
@@ -34,7 +38,7 @@ const About = () => {
                 Our Love Story with Events
               </h1>
               <p className="text-xl lg:text-2xl text-muted-foreground font-body leading-relaxed mb-12">
-                At S7 Events and Entertainments, we don&apos;t just plan events — we create memories that last a lifetime. 
+At S7 Celebrations, we don&apos;t just plan events — we create memories that last a lifetime.
                 Every celebration is a love story, every detail a reflection of happiness.
               </p>
               
