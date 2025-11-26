@@ -1,12 +1,36 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import pg6 from "@/assets/pg6.jpg";
 import { ArrowRight, Heart, Calendar, Camera } from "lucide-react";
 import { motion } from "framer-motion";
 import PlanEventForm from "./PlanEventForm";
 
 const Hero = () => {
   const [openForm, setOpenForm] = React.useState(false);
+  const [showFloating, setShowFloating] = React.useState(false);
+  const inlineCtaRef = React.useRef<HTMLButtonElement | null>(null);
+  const heroImages = ["/wedding1.jpg", "/wedding2.jpg", "/wedding3.jpg"];
+  const [heroIndex, setHeroIndex] = React.useState(0);
+
+  React.useEffect(() => {
+    const el = inlineCtaRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const isVisible = entries[0]?.isIntersecting;
+        setShowFloating(!isVisible);
+      },
+      { root: null, threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  React.useEffect(() => {
+    const id = setInterval(() => {
+      setHeroIndex((i) => (i + 1) % heroImages.length);
+    }, 6000);
+    return () => clearInterval(id);
+  }, [heroImages.length]);
   return (
     <section
       id="home"
@@ -29,6 +53,8 @@ const Hero = () => {
               </h1>
             </motion.div>
 
+            {/* subtitle removed as requested */}
+
             <motion.p
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -49,6 +75,7 @@ const Hero = () => {
             >
               <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}>
                 <Button
+                  ref={inlineCtaRef}
                   size="lg"
                   className="font-medium"
                   onClick={() => setOpenForm(true)}
@@ -108,10 +135,14 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.5 }}
           >
             <div className="relative overflow-hidden rounded-2xl shadow-2xl">
-              <img
-                src={pg6}
+              <motion.img
+                key={heroIndex}
+                src={heroImages[heroIndex]}
                 alt="Elegant wedding ceremony setup"
                 className="w-full h-auto max-h-[70vh] object-cover"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
@@ -131,6 +162,17 @@ const Hero = () => {
           </motion.div>
         </div>
       </div>
+      {showFloating && (
+        <Button
+          size="lg"
+          className="fixed bottom-20 left-1/2 -translate-x-1/2 sm:bottom-24 z-50 font-medium shadow-lg"
+          onClick={() => setOpenForm(true)}
+          aria-label="Plan Your Event"
+        >
+          Plan Your Event
+          <ArrowRight className="ml-2 w-4 h-4" />
+        </Button>
+      )}
       <PlanEventForm open={openForm} onClose={() => setOpenForm(false)} />
     </section>
   );

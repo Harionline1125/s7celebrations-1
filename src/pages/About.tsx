@@ -158,7 +158,7 @@ At S7 Celebrations, we don&apos;t just plan events — we create memories that l
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl lg:text-4xl font-heading font-bold mb-6">
-                Why Choose <span className="italic">S7 Events?</span>
+                Why Choose <span className="italic">S7 Celebrations?</span>
               </h2>
               <p className="text-lg text-primary-foreground/80 font-body max-w-3xl mx-auto">
                 We don&apos;t just organize events; we weave love, care, and creativity into every moment.

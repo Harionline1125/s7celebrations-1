@@ -3,15 +3,16 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 
-// Image imports (keep yours)
-import mrg1 from "@/assets/mrg1.jpg";
-import mrg2 from "@/assets/mrg2.jpg";
-import mrg3 from "@/assets/mrg3.jpg";
-import mrg4 from "@/assets/mrg4.jpg";
+// Wedding images now referenced from public folder: /wedding-1.jpg, /wedding-2.jpg, /wedding-3.jpg
 
-import dec1 from "@/assets/dec1.jpg";
-import dec2 from "@/assets/dec2.jpg";
-import dec3 from "@/assets/dec3.jpg";
+import wedding1 from "@/assets/wedding1.jpeg";
+import wedding2 from "@/assets/wedding2.jpeg";
+import wedding3 from "@/assets/wedding3.jpeg";
+
+
+import dec1 from "@/assets/dec1.jpeg";
+import dec2 from "@/assets/dec2.jpeg";
+import dec3 from "@/assets/dec3.jpeg";
 import dec4 from "@/assets/dec4.jpg";
 import dec5 from "@/assets/dec5.jpg";
 
@@ -46,10 +47,10 @@ const Gallery = () => {
   const filters = ["All", "Weddings", "Birthdays", "Décor", "Photography"];
 
   const galleryItems = [
-    { id: 1, image: mrg1, category: "Weddings", title: "Wedding 1", description: "Beautiful wedding moment" },
-    { id: 2, image: mrg2, category: "Weddings", title: "Wedding 2", description: "Beautiful wedding moment" },
-    { id: 3, image: mrg3, category: "Weddings", title: "Wedding 3", description: "Beautiful wedding moment" },
-    { id: 4, image: mrg4, category: "Weddings", title: "Wedding 4", description: "Beautiful wedding moment" },
+    { id: 1, image: wedding1, category: "Weddings", title: "Wedding 1", description: "Elegant stage décor" },
+    { id: 2, image: wedding2, category: "Weddings", title: "Wedding 2", description: "Chandeliers with floral styling" },
+    { id: 3, image: wedding3, category: "Weddings", title: "Wedding 3", description: "Classic floral arches" },
+
     { id: 5, image: dec1, category: "Décor", title: "Décor 1", description: "Creative décor setup" },
     { id: 6, image: dec2, category: "Décor", title: "Décor 2", description: "Creative décor setup" },
     { id: 7, image: dec3, category: "Décor", title: "Décor 3", description: "Creative décor setup" },

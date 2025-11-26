@@ -26,13 +26,13 @@ const testimonials: Testimonial[] = [
   {
     id: 3,
     name: "Priya Ramesh",
-    review: "S7 Events transformed our wedding reception into a dream come true! From decor to lighting and music, everything was perfect. The photography team captured every precious moment beautifully. We'll cherish these memories forever!",
+    review: "S7 Celebrations transformed our wedding reception into a dream come true! From decor to lighting and music, everything was perfect. The photography team captured every precious moment beautifully. We'll cherish these memories forever!",
     rating: 5,
   },
   {
     id: 4,
     name: "Aravind Kumar",
-    review: "We booked S7 Events for our daughter's first birthday, and they made it magical! The theme decoration, entertainment, and food arrangements were all perfect. Our guests loved every detail!",
+    review: "We booked S7 Celebrations for our daughter's first birthday, and they made it magical! The theme decoration, entertainment, and food arrangements were all perfect. Our guests loved every detail!",
     rating: 5,
   },
   {
@@ -44,25 +44,25 @@ const testimonials: Testimonial[] = [
   {
     id: 6,
     name: "Nivetha Suresh",
-    review: "S7 Events made my brother's engagement ceremony so special! The flower arrangements and photography were simply beautiful. Thank you for your punctuality and excellent service!",
+    review: "S7 Celebrations made my brother's engagement ceremony so special! The flower arrangements and photography were simply beautiful. Thank you for your punctuality and excellent service!",
     rating: 5,
   },
   {
     id: 7,
     name: "Karthick M",
-    review: "Highly recommend S7 Events for any function! They managed our family reception with great care and detail. The decoration, catering, and music coordination were all outstanding.",
+    review: "Highly recommend S7 Celebrations for any function! They managed our family reception with great care and detail. The decoration, catering, and music coordination were all outstanding.",
     rating: 5,
   },
   {
     id: 8,
     name: "Lakshmi Narayanan",
-    review: "We hired S7 Events for a housewarming function, and they did an amazing job. The catering was delicious, and the team ensured everything went smoothly from start to finish. Great experience!",
+    review: "We hired S7 Celebrations for a housewarming function, and they did an amazing job. The catering was delicious, and the team ensured everything went smoothly from start to finish. Great experience!",
     rating: 5,
   },
   {
     id: 9,
     name: "Sanjana R",
-    review: "S7 Events handled my best friend's wedding photography and videography — the shots were stunning! They captured all emotions perfectly and delivered the album on time. Superb service!",
+    review: "S7 Celebrations handled my best friend's wedding photography and videography — the shots were stunning! They captured all emotions perfectly and delivered the album on time. Superb service!",
     rating: 5,
   },
   {
@@ -223,4 +223,3 @@ const Testimonials = () => {
 };
 
 export default Testimonials;
-

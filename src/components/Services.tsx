@@ -103,7 +103,7 @@ const Services = () => {
               transition={{ duration: 0.6 }}
               className="text-3xl font-heading font-bold mb-4"
             >
-              Why Choose <span className="text-primary italic">S7 Events</span>
+              Why Choose <span className="text-primary italic">S7 Celebrations</span>
             </motion.h3>
             <motion.p
               initial={{ opacity: 0, y: -10 }}

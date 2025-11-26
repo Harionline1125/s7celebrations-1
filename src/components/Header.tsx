@@ -82,9 +82,14 @@ const Header = () => {
                 loading="eager"
                 decoding="async"
               />
-              <span className="text-2xl font-heading font-bold text-primary">
-  S7 Celebrations
-              </span>
+              <div className="leading-tight">
+                <span className="text-2xl font-heading font-bold text-primary block">
+                  S7 Celebrations
+                </span>
+                <span className="text-xs md:text-sm font-body text-primary block">
+                  The Event Company
+                </span>
+              </div>
             </Link>
           </div>
 

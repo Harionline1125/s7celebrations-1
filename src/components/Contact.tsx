@@ -79,7 +79,7 @@ const Contact = () => {
                   <MessageCircle className="w-10 h-10 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-heading text-xl font-semibold mb-2">Chat with S7 Events</h3>
+                  <h3 className="font-heading text-xl font-semibold mb-2">Chat with S7 Celebrations</h3>
                   <p className="text-muted-foreground font-body mb-6">
                     Get instant responses to your queries about event planning, pricing, and availability.
                   </p>
