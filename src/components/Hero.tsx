@@ -3,12 +3,13 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Heart, Calendar, Camera } from "lucide-react";
 import { motion } from "framer-motion";
 import PlanEventForm from "./PlanEventForm";
+import pg6 from "@/assets/pg6.jpg";
 
 const Hero = () => {
   const [openForm, setOpenForm] = React.useState(false);
   const [showFloating, setShowFloating] = React.useState(false);
   const inlineCtaRef = React.useRef<HTMLButtonElement | null>(null);
-  const heroImages = ["/wedding1.jpg", "/wedding2.jpg", "/wedding3.jpg"];
+  const heroImages = [pg6];
   const [heroIndex, setHeroIndex] = React.useState(0);
 
   React.useEffect(() => {
@@ -26,6 +27,7 @@ const Hero = () => {
   }, []);
 
   React.useEffect(() => {
+    if (heroImages.length <= 1) return;
     const id = setInterval(() => {
       setHeroIndex((i) => (i + 1) % heroImages.length);
     }, 6000);
@@ -137,7 +139,7 @@ const Hero = () => {
             <div className="relative overflow-hidden rounded-2xl shadow-2xl">
               <motion.img
                 key={heroIndex}
-                src={heroImages[heroIndex]}
+                src={pg6}
                 alt="Elegant wedding ceremony setup"
                 className="w-full h-auto max-h-[70vh] object-cover"
                 initial={{ opacity: 0 }}
