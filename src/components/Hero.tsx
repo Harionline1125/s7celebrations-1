@@ -109,21 +109,21 @@ const Hero = () => {
                 <div className="flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full mb-2 mx-auto">
                   <Heart className="w-6 h-6 text-primary" />
                 </div>
-                <div className="text-2xl font-bold text-primary font-heading">500+</div>
+                <div className="text-2xl font-bold text-primary font-heading">50+</div>
                 <div className="text-sm text-muted-foreground font-body">Happy Couples</div>
               </div>
               <div className="text-center">
                 <div className="flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full mb-2 mx-auto">
                   <Calendar className="w-6 h-6 text-primary" />
                 </div>
-                <div className="text-2xl font-bold text-primary font-heading">1000+</div>
+                <div className="text-2xl font-bold text-primary font-heading">100+</div>
                 <div className="text-sm text-muted-foreground font-body">Events Planned</div>
               </div>
               <div className="text-center">
                 <div className="flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full mb-2 mx-auto">
                   <Camera className="w-6 h-6 text-primary" />
                 </div>
-                <div className="text-2xl font-bold text-primary font-heading">5+</div>
+                <div className="text-2xl font-bold text-primary font-heading">2+</div>
                 <div className="text-sm text-muted-foreground font-body">Years Experience</div>
               </div>
             </motion.div>
